@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //Variables
+    public float movementSpeed;
 
-    // Update is called once per frame
+
+    //Methods
     void Update()
     {
-        
+        Plane playerPlane = new Plane(Vector3.up, transform.position);
+        Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
+        float hitDist = 0.0f;
+        if(playerPlane.Raycast(ray, out hitDist)){
+            Vector3 targetPoint = ray.GetPoint(hitDist);
+            Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+            targetRotation.x = 0;
+            targetRotation.z = 0;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 7f * Time.deltaTime);
+        }
+
     }
 }

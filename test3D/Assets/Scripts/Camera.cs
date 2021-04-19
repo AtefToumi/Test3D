@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Camera : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //Variables
+    public Transform player;
+    public float smooth = 0.3f;
+    public float height;
 
-    // Update is called once per frame
+    private Vector3 velocity = Vector3.zero;
+
+    //Methods
     void Update()
     {
-        
+      Vector3 pos = new Vector3(); 
+      pos.x = player.position.x;
+      pos.z = player.position.z - 3f;
+      pos.y = player.position.y + height;
+      transform.position = Vector3.SmoothDamp(transform.position, pos, ref velocity, smooth);
     }
+    
+
 }

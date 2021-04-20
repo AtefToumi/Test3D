@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public GameObject bullet;
 
     private Transform bulletSpawned;
-
+    public float points;
     //Methods
     void Update()
     {

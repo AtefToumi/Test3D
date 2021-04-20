@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    //Variables
    public float speed;
    public float maxDistance; 
 
-    // Update is called once per frame
+    private GameObject triggeringEnemy;
+    public float damage;
+
+    
+    //Methods
     void Update()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
@@ -16,5 +21,15 @@ public class Bullet : MonoBehaviour
         if(maxDistance >= 5){
             Destroy(this.gameObject);
             }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Enemy")
+        {
+            triggeringEnemy = other.gameObject;
+            triggeringEnemy.GetComponent<Enemy>().health -= damage;
+            Destroy(this.gameObject);
+        }
     }
 }

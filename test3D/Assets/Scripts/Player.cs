@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
         }
 
         //Player Movement
-        if(Input.GetKey(KeyCode.Z)){
+        if(Input.GetKey(KeyCode.W)){
             transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
         }
     }

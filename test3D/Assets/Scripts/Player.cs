@@ -6,12 +6,17 @@ public class Player : MonoBehaviour
 {
     //Variables
     public float movementSpeed;
+    public GameObject camera;
+    
+    public GameObject playerObj;
 
-
+    public GameObject bulletSpawnPoint;
+    public float waitTime;
+    public GameObject bullet;
     //Methods
     void Update()
     {
-            //Player faces mouses
+            //Player faces mouse
         Plane playerPlane = new Plane(Vector3.up, transform.position);
         Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
         float hitDist = 0.0f;
@@ -20,12 +25,36 @@ public class Player : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
             targetRotation.x = 0;
             targetRotation.z = 0;
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 7f * Time.deltaTime);
+            playerObj.transform.rotation = Quaternion.Slerp(playerObj.transform.rotation, targetRotation, 7f * Time.deltaTime);
         }
 
         //Player Movement
-        if(Input.GetKey(KeyCode.W)){
+        if(Input.GetKey(KeyCode.Z)){
             transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
         }
+
+        if(Input.GetKey(KeyCode.S)){
+            transform.Translate(Vector3.back * movementSpeed * Time.deltaTime);
+        }
+
+
+        if(Input.GetKey(KeyCode.Q)){
+            transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
+        }
+
+        if(Input.GetKey(KeyCode.D)){
+            transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+        }
+
+
+        //Shooting
+        if(Input.GetMouseButtonDown(0)){
+            Shoot();
+        }
     }
+
+    void Shoot(){
+        Instantiate(bullet.transform, bulletSpawnPoint.transform.position, Quaternion.identity);
+    }
+
 }

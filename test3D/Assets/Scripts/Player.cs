@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     //Methods
     void Update()
     {
+            //Player faces mouses
         Plane playerPlane = new Plane(Vector3.up, transform.position);
         Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
         float hitDist = 0.0f;
@@ -22,5 +23,9 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 7f * Time.deltaTime);
         }
 
+        //Player Movement
+        if(Input.GetKey(KeyCode.Z)){
+            transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
+        }
     }
 }
